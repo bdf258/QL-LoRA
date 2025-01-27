@@ -1,6 +1,6 @@
 python train.py \
 --seed 100 \
---model_name_or_path "mistralai/Mistral-7B-v0.1" \
+--model_name_or_path "meta-llama/Llama-3.2-3B-Instruct" \  # so we use the right model!
 --dataset_name "smangrul/ultrachat-10k-chatml" \
 --chat_template_format "chatml" \
 --add_special_tokens False \
@@ -11,11 +11,8 @@ python train.py \
 --logging_steps 5 \
 --log_level "info" \
 --logging_strategy "steps" \
---eval_strategy "epoch" \
---save_strategy "epoch" \
---push_to_hub \
---hub_private_repo True \
---hub_strategy "every_save" \
+--eval_strategy "steps" \
+--save_strategy "steps" \
 --bf16 True \
 --packing True \
 --learning_rate 1e-4 \
@@ -23,10 +20,10 @@ python train.py \
 --weight_decay 1e-4 \
 --warmup_ratio 0.0 \
 --max_grad_norm 1.0 \
---output_dir "mistral-sft-lora" \
---per_device_train_batch_size 8 \
---per_device_eval_batch_size 8 \
---gradient_accumulation_steps 8 \
+--output_dir "test_checkpoints" \
+--per_device_train_batch_size 1 \
+--per_device_eval_batch_size 1 \
+--gradient_accumulation_steps 1 \
 --gradient_checkpointing True \
 --use_reentrant True \
 --dataset_text_field "content" \
@@ -39,3 +36,6 @@ python train.py \
 --use_nested_quant True \
 --bnb_4bit_compute_dtype "bfloat16" \
 --use_flash_attn True
+--save_steps 1 \
+--report_to none \
+--max_steps 1 \
